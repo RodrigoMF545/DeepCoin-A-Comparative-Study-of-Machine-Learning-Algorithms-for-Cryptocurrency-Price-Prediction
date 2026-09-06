@@ -1,12 +1,10 @@
 # DeepCoin: A Comparative Study of Machine Learning Algorithms for Cryptocurrency Price Prediction
 
-Final Year Project (Trabalho de Fim de Curso) in Computer and Telecommunications Engineering, Universidade Técnica do Atlântico (UTA), Mindelo, Cabo Verde — Academic Year 2025/2026.
-
-**Accepted at EPIA 2026** — 25th European Conference on Artificial Intelligence (Funchal, September 2026), AITD track (time-series analysis and deep learning architectures). Graded 19/20.
+Final Year Project (Trabalho de Fim de Curso) in Computer and Telecommunications Engineering, Universidade Técnica do Atlântico (UTA), Mindelo, Cabo Verde — Academic Year 2025/2026. Graded 19/20.
 
 ## About the project
 
-DeepCoin is a comparative study of Machine Learning and Deep Learning algorithms applied to cryptocurrency price prediction (Bitcoin, Ethereum, and Solana). Six algorithms are evaluated — **Random Forest, SVM, LSTM, GRU, Transformer, and TCN** — under two experimental conditions: with and without data augmentation techniques (jittering and magnitude warping).
+DeepCoin is a comparative study of Machine Learning and Deep Learning algorithms applied to cryptocurrency price prediction (Bitcoin, Ethereum, and Solana). Six algorithms are evaluated — **Random Forest, LSTM, GRU, Transformer, and TCN** — under two experimental conditions: with and without data augmentation techniques (jittering and magnitude warping).
 
 The repository is organized into two complementary parts:
 
