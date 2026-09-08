@@ -47,6 +47,74 @@ results/
 
 A full discussion of the results is available in the thesis report ([`../docs/relatorio.pdf`](../docs/relatorio.pdf)) and in the EPIA 2026 paper.
 
+## Results
+
+Full discussion is in the thesis report ([`../docs/relatorio.pdf`](../docs/relatorio.pdf), sections 4.1–4.2 and 5). Summary below.
+
+### Random Forest (baseline)
+
+| Cryptocurrency | MAE | RMSE | MAPE | R² |
+|---|---|---|---|---|
+| Solana | 0.64 | 1.22 | 0.35% | 0.9988 |
+| Bitcoin | 6294.85 | 12969.32 | 6.92% | 0.7221 |
+| Ethereum | 3.68 | 5.17 | 0.13% | 0.9999 |
+
+RF fit Solana and Ethereum very well. On Bitcoin it tracked the overall trend but underperformed on the sharp post-2024 volatility spikes — pointing to overfitting on training-period patterns and weaker generalization on high-volatility regimes.
+
+![Random Forest — predicted vs. actual](./results/figures/fig15_random_forest_predictions.png)
+
+### Deep Learning — Bitcoin
+
+| Model | Augmentation | MAE | RMSE | MAPE | R² |
+|---|---|---|---|---|---|
+| LSTM | No | 7331.66 | 10752.73 | 9.53% | 0.8013 |
+| LSTM | Yes | 5117.18 | 8505.45 | 6.34% | 0.8757 |
+| GRU | No | 4227.35 | 6510.70 | 5.49% | 0.9272 |
+| GRU | Yes | 5448.27 | 9467.43 | 6.56% | 0.8460 |
+| **TCN** | **Yes** | **1566.40** | **2293.38** | **2.33%** | **0.9910** |
+| TCN | No | 2707.53 | 3464.89 | 4.16% | 0.9794 |
+| Transformer | No | 8591.46 | 14547.61 | 10.43% | 0.6364 |
+| Transformer | Yes | 8693.70 | 14663.97 | 10.37% | 0.6305 |
+
+![Training/validation loss — Bitcoin](./results/figures/fig16_loss_bitcoin.png)
+
+### Deep Learning — Ethereum
+
+| Model | Augmentation | MAE | RMSE | MAPE | R² |
+|---|---|---|---|---|---|
+| LSTM | No | 151.03 | 198.26 | 5.06% | 0.8952 |
+| LSTM | Yes | 101.14 | 138.36 | 3.58% | 0.9490 |
+| GRU | No | 94.35 | 129.74 | 3.31% | 0.9551 |
+| GRU | Yes | 84.52 | 118.39 | 2.96% | 0.9626 |
+| **TCN** | **Yes** | **79.20** | **110.74** | **2.77%** | **0.9673** |
+| TCN | No | 96.73 | 126.73 | 3.31% | 0.9572 |
+| Transformer | No | 92.94 | 124.34 | 3.25% | 0.9588 |
+| Transformer | Yes | 79.78 | 112.07 | 2.77% | 0.9665 |
+
+![Training/validation loss — Ethereum](./results/figures/fig17_loss_ethereum.png)
+
+### Deep Learning — Solana
+
+| Model | Augmentation | MAE | RMSE | MAPE | R² |
+|---|---|---|---|---|---|
+| LSTM | No | 11.05 | 15.13 | 6.24% | 0.8416 |
+| LSTM | Yes | 8.17 | 10.85 | 4.95% | 0.9185 |
+| GRU | No | 7.79 | 10.32 | 4.61% | 0.9263 |
+| GRU | Yes | 7.32 | 9.69 | 4.40% | 0.9350 |
+| **TCN** | **Yes** | **6.47** | **8.63** | **3.85%** | **0.9485** |
+| TCN | No | 6.93 | 9.37 | 4.06% | 0.9393 |
+| Transformer | No | 8.41 | 11.26 | 4.81% | 0.9122 |
+| Transformer | Yes | 7.05 | 9.29 | 4.16% | 0.9403 |
+
+![Training/validation loss — Solana](./results/figures/fig18_loss_solana.png)
+
+### Key takeaways
+
+- **TCN was the most consistent model overall**, achieving the lowest error and highest R² on all three assets, especially after data augmentation — evidence that dilated causal convolutions capture short-term price patterns well across different volatility regimes.
+- **Data augmentation (jittering + magnitude warping) improved LSTM and GRU** across the board, and improved the Transformer on Ethereum and Solana. On Bitcoin, augmentation helped LSTM but not the Transformer, which remained the weakest model on that asset in both scenarios.
+- **Random Forest is a strong, cheap baseline** for lower-volatility assets (Ethereum, Solana), but a deep learning model — particularly TCN — is a better fit when volatility is high (Bitcoin).
+- All models trained without visible overfitting/underfitting (loss and validation loss curves converge together in all three datasets).
+
 ## How to reproduce
 
 **Option A — Kaggle (recommended, matches the original setup):**
